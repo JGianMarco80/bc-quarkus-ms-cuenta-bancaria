@@ -47,4 +47,27 @@ public class CuentaBancariaResource {
     public void delete(@PathParam("id") Long id){
         cuentaBancariaService.delete(id);
     }
+
+    @GET
+    @Path("/consultar-saldo")
+    public CuentaBancaria consultaCuentaBancaria(@QueryParam("numeroCuenta") String numeroCuenta) {
+        return cuentaBancariaService.consultarCuenta(numeroCuenta);
+    }
+
+    @PUT
+    @Path("/depositar-saldo")
+    @Transactional
+    public void depositarSaldoCuenta(@QueryParam("numeroCuenta") String numeroCuenta,
+                                     @QueryParam("saldo") Double saldo){
+        cuentaBancariaService.depositarSaldoCuenta(numeroCuenta, saldo);
+    }
+
+    @PUT
+    @Path("/retirar-saldo")
+    @Transactional
+    public void retirarSaldoCuenta(@QueryParam("numeroCuenta") String numeroCuenta,
+                                     @QueryParam("saldo") Double saldo){
+        cuentaBancariaService.retirarSaldoCuenta(numeroCuenta, saldo);
+    }
+
 }

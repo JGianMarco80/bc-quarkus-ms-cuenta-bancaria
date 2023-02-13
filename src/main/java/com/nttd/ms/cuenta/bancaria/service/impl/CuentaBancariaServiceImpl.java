@@ -56,4 +56,61 @@ public class CuentaBancariaServiceImpl implements CuentaBancariaService {
         cbObtenido.setEstado("0");
         cuentaBancariaRepository.persist(cbObtenido);
     }
+
+    //Operaciones a Cuentas Bancarias
+    @Override
+    public CuentaBancaria consultarCuenta(String numeroCuenta) {
+
+        CuentaBancaria cbObtenido = new CuentaBancaria();
+
+        List<CuentaBancaria> cuentaBancarias = this.findAll();
+
+        for (CuentaBancaria cuentaBancaria: cuentaBancarias) {
+            if(cuentaBancaria.getNumeroCuenta().equals(numeroCuenta)) {
+                cbObtenido = cuentaBancaria;
+            }
+        }
+
+        return cbObtenido;
+    }
+
+    @Override
+    public void depositarSaldoCuenta(String numeroCuenta, Double saldo) {
+        Double saldoNuevo = 0.0;
+
+        List<CuentaBancaria> cuentaBancarias = this.findAll();
+
+        for (CuentaBancaria cuentaBancaria: cuentaBancarias) {
+            if(cuentaBancaria.getNumeroCuenta().equals(numeroCuenta)) {
+                saldoNuevo = cuentaBancaria.getSaldo() + saldo;
+                cuentaBancaria.setSaldo(saldoNuevo);
+            }
+        }
+    }
+
+    @Override
+    public void retirarSaldoCuenta(String numeroCuenta, Double saldo) {
+        Double saldoNuevo = 0.0;
+
+        List<CuentaBancaria> cuentaBancarias = this.findAll();
+
+        for (CuentaBancaria cuentaBancaria: cuentaBancarias) {
+            if(cuentaBancaria.getNumeroCuenta().equals(numeroCuenta)) {
+                if(cuentaBancaria.getTipoCuenta().equals("1")) {
+                    if(cuentaBancaria.getSaldo() > saldo) {
+                        saldoNuevo = cuentaBancaria.getSaldo() - saldo;
+                        cuentaBancaria.setSaldo(saldoNuevo);
+                    }
+                    System.out.println("No tiene suficiente dinero en su cuenta");
+                } else{
+                    System.out.println("No se puede retirar saldo a una cuenta secundaria");
+                }
+            }
+        }
+    }
+
+    /*@Override
+    public void transferenciaBancaria(String[] numeroCuenta, Double saldo) {
+
+    }*/
 }

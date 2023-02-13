@@ -23,9 +23,13 @@ public class CuentaBancaria {
     @Column(name = "cci")
     private String cci;
 
+    //1: cuenta principal
+    //2: cuenta secundaria
     @Column(name = "tipo_cuenta")
     private String tipoCuenta;
 
+    //1: soles
+    //2: dolares
     @Column(name = "tipo_moneda")
     private String tipoMoneda;
 

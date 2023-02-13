@@ -16,4 +16,13 @@ public interface CuentaBancariaService {
 
     void delete(Long id);
 
+    //Operaciones a Cuentas Bancarias
+    CuentaBancaria consultarCuenta(String numeroCuenta);
+
+    void depositarSaldoCuenta(String numeroCuenta, Double saldo);
+
+    void retirarSaldoCuenta(String numeroCuenta, Double saldo);
+
+    //void transferenciaBancaria(String[] numeroCuenta, Double saldo);
+
 }
